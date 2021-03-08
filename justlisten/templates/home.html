@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Just Listen</title>
+</head>
+<style>
+    img {
+        border-radius: 50%;
+        width:150px;
+        height:150px;
+    }
+    ul {
+        list-style-type: none;
+    }
+    li {
+        margin: 0 0 30px 0;
+    }
+</style>
+<script>
+
+</script>
+<body class="w3-main w3-black">
+    <div class="w3-display-top w3-display-container">
+        <ul class="w3-display-topleft">
+            <li>
+                <h1 class="w3-xxxlarge w3-text-yellow" style="text-shadow:1px 1px 0 #444">
+                    <b>Frequently Played</b>
+                </h1>
+            </li>
+            <li>
+                <img src="{{ artist1_uri }}">
+                <b class="w3-xxlarge">{{ artist1 }}</b>
+                <br>
+                <b class="w3-large w3-text-green">Most frequently played.</b>
+            </li>
+            <li>
+                <img src="{{ artist2_uri }}">
+                <b class="w3-xxlarge">{{ artist2 }}</b>
+                <br>
+                <b class="w3-large w3-text-green">2nd Most frequently played.</b>
+            </li>
+            <li>
+                <img src="{{ artist3_uri }}">
+                <b class="w3-xxlarge">{{ artist3 }}</b>
+                <br>
+                <b class="w3-large w3-text-green">3rd Most frequently played.</b>
+            </li>
+        </ul>
+        <div class="w3-container w3-display-topright" style="padding-right:15%;">
+            <iframe name="hide" style="display:none;"></iframe>
+            <h1 class="w3-xxxlarge w3-text-yellow" style="text-shadow:1px 1px 0 #444">
+                <b>Top Tracks Of Artist</b>
+            </h1>
+            <div class="w3-container" style="padding-left:10%; padding-top:10%">
+                <form action="/artist" target="hide">
+                    <input class="w3-input w3-left" type="text" name="name" required style="width:70%">
+                    <button class="w3-button w3-green w3-right w3-text-black" type="Submit" style="border-radius:8%; width:25%">SEARCH</button>
+                </form>
+            </div>
+            <h1 class="w3-xxxlarge w3-text-yellow" style="text-shadow:1px 1px 0 #444; padding-top:15%">
+                <b>New Songs For You</b>
+            </h1>
+            <form action="/generate" target="hide" style="padding-left:30%">
+                <button class="w3-button w3-large w3-green w3-text-black" type="Submit" style="border-radius:8%; width:40%;">GENERATE</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
