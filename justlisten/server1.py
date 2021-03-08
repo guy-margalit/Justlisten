@@ -3,20 +3,20 @@ from flask import Flask, session, request, redirect, render_template
 from flask_session import Session
 import spotipy
 import uuid
-from justlisten.Utils import Utils
+from Utils import Utils
 
-from justlisten.database import UsersDatabase
-from justlisten.UsersPercentage import UsersPercentage
-from justlisten.songsDatabase import SongsDatabase
-from justlisten.users_and_songsDatabase import users_and_songsDatabase
+from database import UsersDatabase
+from UsersPercentage import UsersPercentage
+from songsDatabase import SongsDatabase
+from users_and_songsDatabase import users_and_songsDatabase
 
 
-PORT_NUMBER = 8080  # the port that the server run on
+PORT_NUMBER = 80  # the port that the server run on
 SPOTIPY_CLIENT_ID = 'f97d1c5036a046979fd80b06095282da'  # application id
 SPOTIPY_CLIENT_SECRET = 'd57ba80dfd244a43a5e8139f21b6038a'  # application secret
-SPOTIPY_REDIRECT_URI = 'http://80.178.34.235:8080'  # application uri
+SPOTIPY_REDIRECT_URI = 'http://3.142.97.227/'  # application uri
 SCOPE = 'user-library-read playlist-modify-private user-read-currently-playing user-read-private'  # the variable that say what i will do with the client
-DATABASE_PATH = "justlisten/database.db"
+DATABASE_PATH = "database.db"
 
 
 app = Flask(__name__)
@@ -143,4 +143,4 @@ def current_user():
     return spotify.current_user()
 
 
-app.run(host='0.0.0.0', port=8080, threaded=True)  # run the server
+app.run(host='0.0.0.0', port=PORT_NUMBER, threaded=True)  # run the server
