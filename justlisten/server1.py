@@ -3,7 +3,7 @@ from flask import Flask, session, request, redirect, render_template
 from flask_session import Session
 import spotipy
 import uuid
-from Utils import Utils
+from Utils import *
 
 from database import UsersDatabase
 from UsersPercentage import UsersPercentage
@@ -85,7 +85,7 @@ def index():
         for track_id in tracks[500:550]:
             number = song_database.add_song(track_id)
             users_songs_database.add_user_and_song(user_number, number)
-        percentages = Utils.get_percentage(sp, tracks[500:550])
+        percentages = get_percentage(sp, tracks[500:550])
         for genre, percentage in percentages.items():
             users_percentage.add_user_genre(user_number, genre, percentage)
     else:
@@ -141,6 +141,28 @@ def current_user():
         return redirect('/')
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     return spotify.current_user()
+
+
+@app.route("/generate")
+def generate():
+    try:
+        access_token = request.cookies.get("access_token")
+        sp = spotipy.Spotify(access_token)
+
+        song_database = SongsDatabase(DATABASE_PATH)
+        users_percentage = UsersPercentage(DATABASE_PATH)
+        users_songs_database = users_and_songsDatabase(DATABASE_PATH)
+        users_database = UsersDatabase(DATABASE_PATH)
+
+        user_number = users_database.get_user_number(sp.current_user()['id'])
+        closest_user = find_closest(users_database, users_percentage, user_number)
+        new_tracks = get_new_songs(users_songs_database, song_database, user_number, closest_user)
+        print(new_tracks)
+        create_playlist(sp, "Songs For You", new_tracks)
+        return '<h1 class="w3-xlarge w3-text-yellow" style="text-shadow:1px 1px 0 #444">Generated!</h1>'
+    except Exception as e:
+        print(e)
+        return '<h1 class="w3-xlarge w3-text-yellow" style="text-shadow:1px 1px 0 #444">Error!</h1>'
 
 
 app.run(host='0.0.0.0', port=PORT_NUMBER, threaded=True)  # run the server
